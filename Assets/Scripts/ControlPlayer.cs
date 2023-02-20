@@ -3,17 +3,26 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using UnityEngine.SceneManagement;
 public class ControlPlayer : MonoBehaviour
 {
     public float velocidade = 10;
     public LayerMask floorMask;
+    public GameObject GameOver;
+    public GameObject ButtonPlay;
+    public bool dead = false;
+    public bool started = false;
 
     Vector3 direction;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (started == false)
+        {
+            Time.timeScale = 0;
+            ButtonPlay.SetActive(true);
+        }
+
     }
 
 
@@ -48,7 +57,7 @@ public class ControlPlayer : MonoBehaviour
         {
             Vector3 posicaoMira = impact.point - transform.position;
 
-            posicaoMira.y = transform.position.y;
+            posicaoMira.y = 0;
 
             Quaternion Rotacao = Quaternion.LookRotation(posicaoMira);
 
@@ -57,4 +66,16 @@ public class ControlPlayer : MonoBehaviour
 
     }
 
+    public void Reset()
+    {
+        SceneManager.LoadScene("Game");
+        
+    }
+    public void StartGame()
+    {
+        started = true;
+        ButtonPlay.SetActive(false);
+        Time.timeScale = 1;
+        
+    }
 }

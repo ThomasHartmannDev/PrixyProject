@@ -8,10 +8,16 @@ public class ControlPlayer : MonoBehaviour
 {
     public float velocidade = 10;
     public LayerMask floorMask;
-    public GameObject GameOver;
-    public GameObject ButtonPlay;
-    public bool dead = false;
+    public GameObject CanvasGameOver;
+    public GameObject CanvasPlay;
     public bool started = false;
+    private Animator animatorPlayer;
+    private Rigidbody rigidbodyPlayer;
+
+    public UIControler UIControler;
+
+    public int Vida = 100;
+
 
     Vector3 direction;
     // Start is called before the first frame update
@@ -20,8 +26,12 @@ public class ControlPlayer : MonoBehaviour
         if (started == false)
         {
             Time.timeScale = 0;
-            ButtonPlay.SetActive(true);
+            CanvasPlay.SetActive(true);
         }
+
+        animatorPlayer = GetComponent<Animator>();
+        rigidbodyPlayer = GetComponent<Rigidbody>();
+        
 
     }
 
@@ -36,9 +46,9 @@ public class ControlPlayer : MonoBehaviour
         //transform.Translate(direction * velocidade * Time.deltaTime);
         
         if(direction != Vector3.zero){
-            GetComponent<Animator>().SetBool("Moving", true);
+            animatorPlayer.SetBool("Moving", true);
         } else {
-            GetComponent<Animator>().SetBool("Moving", false);
+            animatorPlayer.SetBool("Moving", false);
         }
 
     }
@@ -46,7 +56,7 @@ public class ControlPlayer : MonoBehaviour
     void FixedUpdate()
     {
 
-        GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + (direction * velocidade * Time.deltaTime));
+        rigidbodyPlayer.MovePosition(rigidbodyPlayer.position + (direction * velocidade * Time.deltaTime));
 
         Ray raio = Camera.main.ScreenPointToRay(Input.mousePosition);
         //Debug.DrawRay(raio.origin, raio.direction * 1000, Color.red);
@@ -61,7 +71,7 @@ public class ControlPlayer : MonoBehaviour
 
             Quaternion Rotacao = Quaternion.LookRotation(posicaoMira);
 
-            GetComponent<Rigidbody>().rotation = Rotacao;
+            rigidbodyPlayer.rotation = Rotacao;
         }
 
     }
@@ -69,13 +79,22 @@ public class ControlPlayer : MonoBehaviour
     public void Reset()
     {
         SceneManager.LoadScene("Game");
-        
     }
     public void StartGame()
     {
         started = true;
-        ButtonPlay.SetActive(false);
+        CanvasPlay.SetActive(false);
         Time.timeScale = 1;
-        
+    }
+
+    public void dmgTaken(int dmg)
+    {
+        Vida -= dmg;
+        UIControler.AtualizarSliderVida();
+        if (Vida <= 0)
+        { // Gameover
+            CanvasGameOver.SetActive(true);
+            Time.timeScale = 0;
+        }
     }
 }

@@ -7,6 +7,7 @@ public class WeaponControler : MonoBehaviour
 
     public GameObject Bala;
     public GameObject CanoRef;
+    public AudioClip audioShoot;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +20,7 @@ public class WeaponControler : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             Instantiate(Bala, CanoRef.transform.position, CanoRef.transform.rotation);
-            
+            AudioControler.instance.PlayOneShot(audioShoot);
         }
     }
 }

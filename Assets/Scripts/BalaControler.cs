@@ -8,6 +8,8 @@ public class BalaControler : MonoBehaviour
 
     float timeCounter = 0;
     public float timeDestroy = 3;
+    public AudioClip AudioZombieDeath;
+
     private void FixedUpdate()
     {
         GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + transform.forward * Vel * Time.deltaTime);
@@ -29,7 +31,7 @@ public class BalaControler : MonoBehaviour
         if (ObjCollider.CompareTag("Inimigo"))
         {
             Destroy(ObjCollider.gameObject);
-            
+            AudioControler.instance.PlayOneShot(AudioZombieDeath);
         }
         Destroy(gameObject);
     }

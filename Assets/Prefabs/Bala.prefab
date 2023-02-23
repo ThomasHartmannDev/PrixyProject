@@ -113,6 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vel: 25
   timeDestroy: 0.5
+  AudioZombieDeath: {fileID: 8300000, guid: 6987e1dd48350da40a917ce801668482, type: 3}
 --- !u!54 &-8021228068741818729
 Rigidbody:
   m_ObjectHideFlags: 0

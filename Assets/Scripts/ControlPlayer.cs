@@ -15,6 +15,7 @@ public class ControlPlayer : MonoBehaviour
     private Rigidbody rigidbodyPlayer;
 
     public UIControler UIControler;
+    public AudioClip audioDmg;
 
     public int Vida = 100;
 
@@ -23,6 +24,7 @@ public class ControlPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         if (started == false)
         {
             Time.timeScale = 0;
@@ -89,8 +91,11 @@ public class ControlPlayer : MonoBehaviour
 
     public void dmgTaken(int dmg)
     {
+        
         Vida -= dmg;
         UIControler.AtualizarSliderVida();
+        AudioControler.instance.PlayOneShot(audioDmg);
+
         if (Vida <= 0)
         { // Gameover
             CanvasGameOver.SetActive(true);

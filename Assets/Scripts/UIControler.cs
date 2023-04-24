@@ -11,8 +11,8 @@ public class UIControler : MonoBehaviour
     void Start()
     {
         ControlPlayer = GameObject.FindWithTag("Player").GetComponent<ControlPlayer>();
-        SlinderVida.maxValue= ControlPlayer.Vida;
-        SlinderVida.value = ControlPlayer.Vida;
+        SlinderVida.maxValue= ControlPlayer.status.Vida;
+        SlinderVida.value = ControlPlayer.status.Vida;
     }
 
     // Update is called once per frame 
@@ -23,6 +23,6 @@ public class UIControler : MonoBehaviour
 
     public void AtualizarSliderVida()
     {
-        SlinderVida.value = ControlPlayer.Vida;
+        SlinderVida.value = ControlPlayer.status.Vida;
     }
 }

@@ -2,24 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyControl : MonoBehaviour
+public class EnemyControl : MonoBehaviour, InterfaceKillable
 {   
-    public float velocidade = 8;
+    
     public GameObject Player;
     public int dmgMin = 10;
     public int dmgMax = 20;
-    private Animator animatorEnemy;
-    private Rigidbody rigidbodyEnemy;
+    public AudioClip AudioZombieDeath;
+
+    private AnimationControl animationControl;
+    private MovimentControl movimentControl;
+    private Status status;
+    private Vector3 randonPosition;
+    private Vector3 direction;
+    private float timeWalking;
+    private float timeWaiting = 4;
+
     // Start is called before the first frame update
     void Start()
     {
-        animatorEnemy= GetComponent<Animator>();
-        rigidbodyEnemy= GetComponent<Rigidbody>();
-
         Player = GameObject.FindWithTag("Player");
-        
-        int zombieSkin = Random.Range(1, 28);
-        transform.GetChild(zombieSkin).gameObject.SetActive(true);
+        movimentControl = GetComponent<MovimentControl>();
+        animationControl = GetComponent<AnimationControl>();
+        status  = GetComponent<Status>();
+
+        RandomZombie();
     }
 
     // Update is called once per frame
@@ -31,27 +38,69 @@ public class EnemyControl : MonoBehaviour
     private void FixedUpdate()
     {       
         float dist = Vector3.Distance(transform.position, Player.transform.position);
-        Vector3 dir = Player.transform.position - transform.position;
-        Quaternion rot = Quaternion.LookRotation(dir);
-        rigidbodyEnemy.MoveRotation(rot);
-
-        if (dist > 2.5)
+        
+        movimentControl.rotation(direction);
+        animationControl.MovingEnemy(direction.magnitude);
+        if(dist > 15) { 
+            WalkingDead();
+        } else if (dist > 2.5)
         {
-            rigidbodyEnemy.MovePosition(rigidbodyEnemy.position + (dir.normalized * velocidade * Time.deltaTime));
-            animatorEnemy.SetBool("Atacar", false);
+            direction = Player.transform.position - transform.position;
+            movimentControl.moveNormalized(direction, status.Velocidade);
+            animationControl.Atack(false);
         } else {
-            animatorEnemy.SetBool("Atacar", true);
+            animationControl.Atack(true);
         }
     }
+    private void WalkingDead()
+    {
+        timeWalking -= Time.deltaTime;
+        if (timeWalking <= 0)
+        {
+            randonPosition = RandomizePosition();
+            timeWalking += timeWaiting;
+        }
+
+        bool close = Vector3.Distance(transform.position, randonPosition) <= 0.5;
+        if(close == false) {
+            direction = randonPosition - transform.position;
+            movimentControl.moveNormalized(direction, status.Velocidade);
+        }
+
+    }
+    private Vector3 RandomizePosition()
+    {
+        Vector3 position = Random.insideUnitSphere * 10;
+        position += transform.position;
+        position.y = transform.position.y;
+        return position;
+    }
+
+
     private void AtackPlayer()
     {
-
-        //Player.GetComponent<ControlPlayer>().GameOver.SetActive(true);
-        //Player.GetComponent<ControlPlayer>().dead = true;
-        //Time.timeScale = 0;
         int dmg = Random.Range(dmgMin, dmgMax); // Randon dmg
         Player.GetComponent<ControlPlayer>().dmgTaken(dmg);
     }
 
+    private void RandomZombie()
+    {
+        int zombieSkin = Random.Range(1, 28);
+        transform.GetChild(zombieSkin).gameObject.SetActive(true);
+    }
 
+    public void dmgTaken(int dmg)
+    {
+        status.Vida -= dmg;
+        if(status.Vida < 0)
+        {
+            died();
+        }
+    }
+
+    public void died()
+    {
+        Destroy(gameObject);
+        AudioControler.instance.PlayOneShot(AudioZombieDeath);
+    }
 }

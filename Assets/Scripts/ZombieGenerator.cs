@@ -7,21 +7,38 @@ public class ZombieGenerator : MonoBehaviour
     public GameObject zombie;
     float timeCounter = 0;
     public float timeGenerator = 1;
+    public LayerMask LayerZombie;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
         timeCounter += Time.deltaTime;
         if (timeCounter >= timeGenerator) { 
-            Instantiate(zombie, transform.position, transform.rotation); 
+            NewZombieGenerator();
             timeCounter = 0; 
         }
         
     }
+    void NewZombieGenerator()
+    {
+        Vector3 posGen = RandomPosition();
+        Collider[] col = Physics.OverlapSphere(posGen, 1, LayerZombie);
+        while(col.Length != 0 )
+        {
+            posGen = RandomPosition();
+            col = Physics.OverlapSphere(posGen, 1, LayerZombie);
+        }
+
+        Instantiate(zombie, posGen, transform.rotation);
+    }
+
+    Vector3 RandomPosition()
+    {
+        Vector3 pos = Random.insideUnitSphere * 3;
+        pos += transform.position;
+        pos.y = 0;
+        return pos;
+    }
+
 }

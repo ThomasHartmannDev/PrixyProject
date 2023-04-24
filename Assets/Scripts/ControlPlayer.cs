@@ -4,21 +4,21 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-public class ControlPlayer : MonoBehaviour
+public class ControlPlayer : MonoBehaviour, InterfaceKillable
 {
-    public float velocidade = 10;
+    
     public LayerMask floorMask;
     public GameObject CanvasGameOver;
     public GameObject CanvasPlay;
     public bool started = false;
-    private Animator animatorPlayer;
-    private Rigidbody rigidbodyPlayer;
 
     public UIControler UIControler;
     public AudioClip audioDmg;
+    public Status status;
 
-    public int Vida = 100;
-
+    private MovePlayerControl movePlayControl;
+    private AnimationControl animationControl;
+    
 
     Vector3 direction;
     // Start is called before the first frame update
@@ -31,51 +31,35 @@ public class ControlPlayer : MonoBehaviour
             CanvasPlay.SetActive(true);
         }
 
-        animatorPlayer = GetComponent<Animator>();
-        rigidbodyPlayer = GetComponent<Rigidbody>();
-        
-
+        movePlayControl = GetComponent<MovePlayerControl>();
+        animationControl = GetComponent<AnimationControl>();
+        status = GetComponent<Status>();
     }
 
 
     // Update is called once per frame
     void Update(){
-        float eixoX = Input.GetAxis("Horizontal"); // Setas: Cima - Baixo || Teclas: W - S 
-        float eixoZ = Input.GetAxis("Vertical"); // Setas: Esquerda - Direita || Teclas: A - D 
+        float eixoX = Input.GetAxisRaw("Horizontal"); // Setas: Cima - Baixo || Teclas: W - S 
+        float eixoZ = Input.GetAxisRaw("Vertical"); // Setas: Esquerda - Direita || Teclas: A - D 
         
         direction = new Vector3(eixoX,0, eixoZ);
-
-        //transform.Translate(direction * velocidade * Time.deltaTime);
-        
-        if(direction != Vector3.zero){
-            animatorPlayer.SetBool("Moving", true);
-        } else {
-            animatorPlayer.SetBool("Moving", false);
+        bool moving;
+        if (direction != Vector3.zero)
+        {
+            moving = true;
+        } else
+        {
+            moving = false;
         }
+        animationControl.MovingPlayer(moving); // Magnitude = tamanho do vector3
 
     }
 
     void FixedUpdate()
-    {
+    { 
+        movePlayControl.move(direction, status.Velocidade);
 
-        rigidbodyPlayer.MovePosition(rigidbodyPlayer.position + (direction * velocidade * Time.deltaTime));
-
-        Ray raio = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //Debug.DrawRay(raio.origin, raio.direction * 1000, Color.red);
-
-        RaycastHit impact;
-
-        if (Physics.Raycast(raio, out impact, 100, floorMask))
-        {
-            Vector3 posicaoMira = impact.point - transform.position;
-
-            posicaoMira.y = 0;
-
-            Quaternion Rotacao = Quaternion.LookRotation(posicaoMira);
-
-            rigidbodyPlayer.rotation = Rotacao;
-        }
-
+        movePlayControl.rotationPlayer(floorMask);
     }
 
     public void Reset()
@@ -92,14 +76,18 @@ public class ControlPlayer : MonoBehaviour
     public void dmgTaken(int dmg)
     {
         
-        Vida -= dmg;
+        status.Vida -= dmg;
         UIControler.AtualizarSliderVida();
         AudioControler.instance.PlayOneShot(audioDmg);
 
-        if (Vida <= 0)
+        if (status.Vida <= 0)
         { // Gameover
-            CanvasGameOver.SetActive(true);
-            Time.timeScale = 0;
+            died();
         }
+    }
+    public void died()
+    {
+        CanvasGameOver.SetActive(true);
+        Time.timeScale = 0;
     }
 }

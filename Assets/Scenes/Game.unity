@@ -441,7 +441,7 @@ GameObject:
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &53376898
 Transform:
   m_ObjectHideFlags: 0
@@ -471,6 +471,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zombie: {fileID: 1063500868937916, guid: 35861510587b7489780fe86970823679, type: 3}
   timeGenerator: 2
+  LayerZombie:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1001 &55839092
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1335,8 +1338,8 @@ Transform:
   - {fileID: 1303609983}
   - {fileID: 1246508599}
   - {fileID: 904178898}
-  m_Father: {fileID: 639173506}
-  m_RootOrder: 23
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &276107330
 PrefabInstance:
@@ -1716,7 +1719,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &455504684
 PrefabInstance:
@@ -1806,22 +1809,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 211329654, guid: 4b3bb44effa49480d8d18049684cc33a, type: 3}
-      propertyPath: dead
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 211329654, guid: 4b3bb44effa49480d8d18049684cc33a, type: 3}
-      propertyPath: GameOver
-      value: 
-      objectReference: {fileID: 2040251639}
-    - target: {fileID: 211329654, guid: 4b3bb44effa49480d8d18049684cc33a, type: 3}
-      propertyPath: audioDmg
-      value: 
-      objectReference: {fileID: 8300000, guid: 8fd77994bac37ae43b75d4fdd12d0629, type: 3}
-    - target: {fileID: 211329654, guid: 4b3bb44effa49480d8d18049684cc33a, type: 3}
-      propertyPath: ButtonPlay
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 211329654, guid: 4b3bb44effa49480d8d18049684cc33a, type: 3}
       propertyPath: CanvasPlay
       value: 
       objectReference: {fileID: 1480912731}
@@ -1833,17 +1820,13 @@ PrefabInstance:
       propertyPath: CanvasGameOver
       value: 
       objectReference: {fileID: 2040251639}
-    - target: {fileID: 211329661, guid: 4b3bb44effa49480d8d18049684cc33a, type: 3}
-      propertyPath: audioShoot
-      value: 
-      objectReference: {fileID: 8300000, guid: ceeb4e9b6b47b1243a55ba230c20d1c4, type: 3}
     - target: {fileID: 1884102019447498, guid: 4b3bb44effa49480d8d18049684cc33a, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 1884102019447498, guid: 4b3bb44effa49480d8d18049684cc33a, type: 3}
-      propertyPath: m_TagString
-      value: Player
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4610746654156704, guid: 4b3bb44effa49480d8d18049684cc33a, type: 3}
       propertyPath: m_RootOrder
@@ -1888,6 +1871,10 @@ PrefabInstance:
     - target: {fileID: 4610746654156704, guid: 4b3bb44effa49480d8d18049684cc33a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6228426130157743319, guid: 4b3bb44effa49480d8d18049684cc33a, type: 3}
+      propertyPath: VidaInit
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b3bb44effa49480d8d18049684cc33a, type: 3}
@@ -2196,7 +2183,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &570046266
 MonoBehaviour:
@@ -2341,7 +2328,6 @@ Transform:
   - {fileID: 144155692}
   - {fileID: 1354611822}
   - {fileID: 287866986}
-  - {fileID: 266206123}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2373,8 +2359,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.24705882, g: 0.31764707, b: 1, a: 1}
-  m_Intensity: 0.2
+  m_Color: {r: 0.0990566, g: 0.116849914, b: 1, a: 1}
+  m_Intensity: 0.22
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -3284,6 +3270,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zombie: {fileID: 1063500868937916, guid: 35861510587b7489780fe86970823679, type: 3}
   timeGenerator: 2
+  LayerZombie:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!4 &904178898
 Transform:
   m_ObjectHideFlags: 0
@@ -4002,7 +3991,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
-  m_Range: 167.81636
+  m_Range: 60
   m_SpotAngle: 119.01236
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -4449,7 +4438,7 @@ GameObject:
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1246508598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4464,6 +4453,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zombie: {fileID: 1063500868937916, guid: 35861510587b7489780fe86970823679, type: 3}
   timeGenerator: 2
+  LayerZombie:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!4 &1246508599
 Transform:
   m_ObjectHideFlags: 0
@@ -4552,7 +4544,7 @@ GameObject:
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1303609982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4567,6 +4559,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zombie: {fileID: 1063500868937916, guid: 35861510587b7489780fe86970823679, type: 3}
   timeGenerator: 2
+  LayerZombie:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!4 &1303609983
 Transform:
   m_ObjectHideFlags: 0
@@ -4952,7 +4947,7 @@ RectTransform:
   m_Children:
   - {fileID: 829085361}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5794,7 +5789,7 @@ RectTransform:
   m_Children:
   - {fileID: 1177920828}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

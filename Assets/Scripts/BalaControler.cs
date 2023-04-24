@@ -30,8 +30,8 @@ public class BalaControler : MonoBehaviour
     {
         if (ObjCollider.CompareTag("Inimigo"))
         {
-            Destroy(ObjCollider.gameObject);
-            AudioControler.instance.PlayOneShot(AudioZombieDeath);
+            int dmg = Random.Range(8, 18);
+            ObjCollider.GetComponent<EnemyControl>().dmgTaken(dmg);
         }
         Destroy(gameObject);
     }

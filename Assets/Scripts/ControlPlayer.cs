@@ -62,16 +62,6 @@ public class ControlPlayer : MonoBehaviour, InterfaceKillable
         movePlayControl.rotationPlayer(floorMask);
     }
 
-    public void Reset()
-    {
-        SceneManager.LoadScene("Game");
-    }
-    public void StartGame()
-    {
-        started = true;
-        CanvasPlay.SetActive(false);
-        Time.timeScale = 1;
-    }
 
     public void dmgTaken(int dmg)
     {
@@ -87,7 +77,6 @@ public class ControlPlayer : MonoBehaviour, InterfaceKillable
     }
     public void died()
     {
-        CanvasGameOver.SetActive(true);
-        Time.timeScale = 0;
+        UIControler.GameOver();
     }
 }

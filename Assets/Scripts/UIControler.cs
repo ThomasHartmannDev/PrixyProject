@@ -1,28 +1,66 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIControler : MonoBehaviour
 {
     // Start is called before the first frame update
+    private bool started = false;
     private ControlPlayer ControlPlayer;
     public Slider SlinderVida;
+    public GameObject GameOverPanel;
+    public GameObject StartPanel;
+
+    public Text TextTime;
+    public Text TextScore;
+
     void Start()
     {
-        ControlPlayer = GameObject.FindWithTag("Player").GetComponent<ControlPlayer>();
-        SlinderVida.maxValue= ControlPlayer.status.Vida;
-        SlinderVida.value = ControlPlayer.status.Vida;
+        if (!started)
+        {
+            Time.timeScale = 0;
+            StartPanel.SetActive(true);
+        }
+        else
+        {
+            StartGame();
+        }
     }
 
     // Update is called once per frame 
-    void Update()
-    {
-        
-    }
-
     public void AtualizarSliderVida()
     {
         SlinderVida.value = ControlPlayer.status.Vida;
+    }
+
+    public void GameOver()
+    {
+        GameOverPanel.SetActive(true);
+        Time.timeScale = 0;
+
+        int minutes = (int)Time.timeSinceLevelLoad / 60;
+        int seconds = (int)Time.timeSinceLevelLoad % 60;
+        int hour = (int)minutes / 60;
+        //TextTime.text = $"Time: {hour}:{minutes}:{seconds}";
+        TextTime.text = $"Time: " + hour + ":" + minutes + ":" + seconds;
+
+        Debug.Log($"Time: {hour}:{minutes}:{seconds}");
+        
+    }
+    public void Restart() 
+    {
+        SceneManager.LoadScene("Game");
+    }
+
+    public void StartGame()
+    {
+        started = true;
+        StartPanel.SetActive(false);
+        ControlPlayer = GameObject.FindWithTag("Player").GetComponent<ControlPlayer>();
+        SlinderVida.maxValue = ControlPlayer.status.Vida;
+        SlinderVida.value = ControlPlayer.status.Vida;
+        Time.timeScale = 1;
     }
 }

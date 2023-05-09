@@ -469,7 +469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7da6e22b532b444aae6cee6dd1c217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zombie: {fileID: 1063500868937916, guid: 35861510587b7489780fe86970823679, type: 3}
+  zombie: {fileID: 1411440108979749655, guid: 35861510587b7489780fe86970823679, type: 3}
   timeGenerator: 2
   LayerZombie:
     serializedVersion: 2
@@ -1190,7 +1190,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1749750629}
         m_TargetAssemblyTypeName: UIControler, Assembly-CSharp
-        m_MethodName: Restart
+        m_MethodName: Quit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1877,6 +1877,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 211329654, guid: 4b3bb44effa49480d8d18049684cc33a, type: 3}
+      propertyPath: started
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 211329654, guid: 4b3bb44effa49480d8d18049684cc33a, type: 3}
       propertyPath: CanvasPlay
       value: 
@@ -3416,7 +3420,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7da6e22b532b444aae6cee6dd1c217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zombie: {fileID: 1063500868937916, guid: 35861510587b7489780fe86970823679, type: 3}
+  zombie: {fileID: 1411440108979749655, guid: 35861510587b7489780fe86970823679, type: 3}
   timeGenerator: 2
   LayerZombie:
     serializedVersion: 2
@@ -4813,7 +4817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7da6e22b532b444aae6cee6dd1c217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zombie: {fileID: 1063500868937916, guid: 35861510587b7489780fe86970823679, type: 3}
+  zombie: {fileID: 1411440108979749655, guid: 35861510587b7489780fe86970823679, type: 3}
   timeGenerator: 2
   LayerZombie:
     serializedVersion: 2
@@ -4919,7 +4923,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7da6e22b532b444aae6cee6dd1c217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zombie: {fileID: 1063500868937916, guid: 35861510587b7489780fe86970823679, type: 3}
+  zombie: {fileID: 1411440108979749655, guid: 35861510587b7489780fe86970823679, type: 3}
   timeGenerator: 2
   LayerZombie:
     serializedVersion: 2
@@ -6398,6 +6402,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4102115031814162, guid: ea23067f9f12846ca92a3ea83d019bd6, type: 3}
   m_PrefabInstance: {fileID: 1246007593}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1792251103
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1792251104}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1792251104
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1792251103}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -15.594414, y: -6.988816, z: -4.793107}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1803073807 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4220502058699494, guid: 9319b28f8643c48368041efb7a34990c, type: 3}

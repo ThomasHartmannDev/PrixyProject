@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class EnemyControl : MonoBehaviour, InterfaceKillable
-{   
-    
+{
     public GameObject Player;
     public int dmgMin = 10;
     public int dmgMax = 20;
     public AudioClip AudioZombieDeath;
+    
+
 
     private AnimationControl animationControl;
     private MovimentControl movimentControl;
@@ -17,6 +20,8 @@ public class EnemyControl : MonoBehaviour, InterfaceKillable
     private Vector3 direction;
     private float timeWalking;
     private float timeWaiting = 4;
+    
+
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +29,7 @@ public class EnemyControl : MonoBehaviour, InterfaceKillable
         Player = GameObject.FindWithTag("Player");
         movimentControl = GetComponent<MovimentControl>();
         animationControl = GetComponent<AnimationControl>();
+        
         status  = GetComponent<Status>();
 
         RandomZombie();
@@ -81,6 +87,7 @@ public class EnemyControl : MonoBehaviour, InterfaceKillable
     {
         int dmg = Random.Range(dmgMin, dmgMax); // Randon dmg
         Player.GetComponent<ControlPlayer>().dmgTaken(dmg);
+        
     }
 
     private void RandomZombie()
@@ -102,5 +109,8 @@ public class EnemyControl : MonoBehaviour, InterfaceKillable
     {
         Destroy(gameObject);
         AudioControler.instance.PlayOneShot(AudioZombieDeath);
+        Player.GetComponent<Status>().ScoreCounter();
+
     }
+
 }

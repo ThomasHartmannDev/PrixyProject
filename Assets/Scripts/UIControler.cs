@@ -9,12 +9,14 @@ public class UIControler : MonoBehaviour
     // Start is called before the first frame update
     private bool started = false;
     private ControlPlayer ControlPlayer;
+
     public Slider SlinderVida;
     public GameObject GameOverPanel;
     public GameObject StartPanel;
 
     public Text TextTime;
     public Text TextScore;
+
 
     void Start()
     {
@@ -44,7 +46,13 @@ public class UIControler : MonoBehaviour
         int seconds = (int)Time.timeSinceLevelLoad % 60;
         int hour = (int)minutes / 60;
         //TextTime.text = $"Time: {hour}:{minutes}:{seconds}";
-        TextTime.text = $"Time: " + hour + ":" + minutes + ":" + seconds;
+        if(seconds < 10) {
+            TextTime.text = $"Time: " + hour + ":" + minutes + ":0" + seconds;
+        } else
+        {
+            TextTime.text = $"Time: " + hour + ":" + minutes + ":" + seconds;
+        }
+        TextScore.text = $"Score: {ControlPlayer.status.Score}";
 
         Debug.Log($"Time: {hour}:{minutes}:{seconds}");
         
@@ -52,6 +60,11 @@ public class UIControler : MonoBehaviour
     public void Restart() 
     {
         SceneManager.LoadScene("Game");
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 
     public void StartGame()

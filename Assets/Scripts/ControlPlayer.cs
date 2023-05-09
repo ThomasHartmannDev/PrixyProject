@@ -18,6 +18,8 @@ public class ControlPlayer : MonoBehaviour, InterfaceKillable
 
     private MovePlayerControl movePlayControl;
     private AnimationControl animationControl;
+
+   
     
 
     Vector3 direction;
@@ -79,4 +81,5 @@ public class ControlPlayer : MonoBehaviour, InterfaceKillable
     {
         UIControler.GameOver();
     }
+
 }
